@@ -6,7 +6,7 @@
   "scripts": {
     "start": "tsc && npm test && node dist/app/server",
     "build": "tsc",
-    "test": "tsc && mocha 'dist/test/**/*.js' --recursive --reporter spec --timeout 60000 --exit"
+    "test": "tsc && jest --forceExit"
   },
   "keywords": [],
   "author": "Aram Manukyan",
@@ -14,12 +14,13 @@
   "devDependencies": {
     "@types/async-redis": "^1.1.1",
     "@types/express": "^4.17.7",
-    "@types/mocha": "^8.0.2",
+    "@types/jest": "^26.0.10",
     "@types/node": "^14.0.27",
     "@types/node-fetch": "^2.5.7",
-    "chai": "^4.2.0",
-    "chai-http": "^4.3.0",
-    "mocha": "^8.1.1"
+    "@types/supertest": "^2.0.10",
+    "jest": "^26.4.0",
+    "supertest": "^4.0.2",
+    "ts-jest": "^26.2.0"
   },
   "dependencies": {
     "async-redis": "^1.1.7",

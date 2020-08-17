@@ -8,8 +8,7 @@ import IPost from '../interfaces/post.interface';
 import IComment from '../interfaces/comment.interface';
 
 const API_LINK = 'https://jsonplaceholder.typicode.com';
-// const redisCli = redis.createClient(6379, 'redis');
-const redisCli = redis.createClient();
+const redisCli = redis.createClient(6379, 'redis');
 
 redisCli.on("error", ()=>console.error);
 
