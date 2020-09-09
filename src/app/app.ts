@@ -1,24 +1,36 @@
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import helmet from 'helmet';
 import express from 'express';
-import getData from './controllers/getData.controller';
+
+import errorHandler from './helpers/errorHandler';
+import v1 from './routes/v1';
 
 class App {
-    public express: any;
+  public express: express.Application;
 
-    constructor() {
-        this.express = express();
-        this.mountRoutes();
-    }
+  constructor() {
+    this.express = express();
+    this.setMiddlewares();
+    this.mountRoutes();
+    this.catchErrors();
+  }
 
-    private mountRoutes(): void {
-        const router = express.Router();
+  private setMiddlewares(): void {
+    this.express.use(cors());
+    this.express.use(bodyParser.json());
+    this.express.use(bodyParser.urlencoded({ extended: false }));
+    this.express.use(helmet());
+  }
 
-        router.get('/get_data', getData.companiesData)
-            .get('/get_data/:searchStr', getData.companiesData)
-            .get('/users_tasks', getData.getUsersAndTasks)
-            .get('/by_post_count', getData.getUsersByPostCount);
+  private mountRoutes(): void {
+    this.express.use('/v1', v1);
+  }
 
-        this.express.use('/', router);
-    }
+  private catchErrors(): void {
+    this.express.use(errorHandler.notFound);
+    this.express.use(errorHandler.internalServerError);
+  }
 }
 
 export default new App().express;

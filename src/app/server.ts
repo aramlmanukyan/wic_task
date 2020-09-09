@@ -1,13 +1,10 @@
-import app from './app'
+import app from './app';
+import serverListener from './helpers/serverListener';
 
 const port = process.env.PORT || 3000;
 
-const server = app.listen(port, (err: Error) => {
-    if (err) {
-        return console.log(err)
-    }
-
-    return console.log(`server is listening on ${port}`)
-});
+const server = app.listen(port);
+server.on('listening', serverListener.onListening(port));
+server.on('error', serverListener.onError(port));
 
 export default server;
